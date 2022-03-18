@@ -2,11 +2,12 @@ import { isLabelWithInternallyDisabledControl } from "@testing-library/user-even
 import React, { useState } from "react";
 
 const App = () => {
-
+//Declare the useState() to update three datas; userName, message , time
     const [userName, setUserName] = useState('');
     const [message, setMessage] = useState('');
     const [time, setTime] = useState(new Date().toString().split(" ").slice(0,5).join(" "))
 
+// Add one more useState() to hold  three updated  datas in an array named timeLineData
     const [timelineData, setTimelineData] = useState([
         {
             username: "Ms. Angela",
@@ -20,35 +21,38 @@ const App = () => {
         }
     ])
 
-
+// Create a function to collect new username value
     const handleUserName = (e) => {
         setUserName(e.target.value)
 
     };
-
+// Create a function to collect new message value
     const handleMessage = (e) => {
         setMessage(e.target.value)
 
     };
-
+// Create a function to update time value
     const handleTime = () => {
         setTime(new Date().toString().split(" ").slice(0,5).join(" "));
 
     }
 
+// Create a function to add three updated values into an array 
     const handleTimelineData = (e) => {
 
-        e.preventDefault();
+        e.preventDefault();// It helps to retain the currently updated value
 
+//handleTime function will be fired to update the time
         handleTime();
-        console.log(time)
-
+     
+// Three updated data will be pushed into the timelineData array
         setTimelineData([...timelineData, {
             username: userName,
             message: message,
             time: time
 
         }])
+// Refresh username and message
         setUserName('');
         setMessage('');
   
@@ -62,13 +66,15 @@ const App = () => {
             <form className="col-6">
 
                 <div className="form-group">
+                    {/* handleUserName function is attached to the text input */}
                     <input type="text" className="form-control" placeholder="Username" value={userName} onChange={handleUserName} />
                 </div>
 
                 <div className="form-group">
+                    {/* handleMessage function is attached to the textarea */}
                     <textarea className="form-control my-3" rows="3" placeholder="Your thoughts" value={message} onChange={handleMessage} ></textarea>
                 </div>
-
+                    {/* handleTimelineData function is attached to the button element */}
                 <button type="button" className="btn btn-outline-primary my-3" onClick={handleTimelineData}> chirp it!</button>
 
             </form>
